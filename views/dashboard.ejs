@@ -1,0 +1,48 @@
+<%- include('./partials/header') %>
+
+  <div class="container mt-4">
+    <h3 class="mb-4">Recent Attendance</h3>
+
+    <div class="mb-2 d-flex justify-content-end">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-primary <%= filter === 'all' ? 'active' : '' %>"><a
+            class="page-link" href="/dashboard?filter=all">All</a></button>
+        <button type="button" class="btn btn-outline-primary <%= filter === 'today' ? 'active' : '' %>"><a
+            class="page-link" href="/dashboard?filter=today">Today</a></button>
+      </div>
+    </div>
+
+    <table class="table table-hover table-bordered table-striped text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Fingerprint ID</th>
+          <th>Date & Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% records.forEach(r=> { %>
+          <tr>
+            <td>
+              <%= r.student.name %>
+            </td>
+            <td>
+              <%= r.student.rollNo %>
+            </td>
+            <td>
+              <%= r.student.fpid %>
+            </td>
+            <td>
+              <%= new Date(r.date).toLocaleString() %>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+
+    <%- include('./partials/pagination') %>
+
+  </div>
+
+  <%- include('./partials/footer') %>

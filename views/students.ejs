@@ -1,0 +1,51 @@
+<%- include('./partials/header') %>
+
+  <div class="container mt-4">
+    <h3 class="mb-4">Registered Students</h3>
+
+    <div class="mb-2 d-flex justify-content-end">
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="GET" action="/students">
+        <input type="search" name="search" value="<%= search || '' %>" class="form-control" placeholder="Search..."
+          aria-label="Search">
+      </form>
+    </div>
+
+    <table class="table table-hover table-bordered table-striped text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Fingerprint ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% students.forEach(s=> { %>
+          <tr>
+            <td>
+              <%= s.name %>
+            </td>
+            <td>
+              <%= s.rollNo %>
+            </td>
+            <td>
+              <%- s.fpid ? s.fpid : '<span class="badge text-bg-warning rounded-pill">Not Registered</span>' %>
+            </td>
+            <td>
+              <form action=" /students/delete/<%=s._id %>" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this student and their attendance history?');">
+                <button type="submit" class="btn btn-sm btn-danger">
+                  🗑 Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+
+    <%- include('./partials/pagination') %>
+
+  </div>
+
+  <%- include('./partials/footer') %>

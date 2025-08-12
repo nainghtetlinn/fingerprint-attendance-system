@@ -1,0 +1,29 @@
+<footer class="p-3">
+    <p class="text-muted text-center">&copy; <%= new Date().getFullYear() %> Fingerprint Student Attendance System</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.pagination .page-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = e.target.dataset.page;
+
+                if (!page || e.target.closest('.disabled')) return;
+
+                const url = new URL(window.location);
+                url.searchParams.set('page', page);
+                // Keep size param or default to 10
+                if (!url.searchParams.has('size')) {
+                    url.searchParams.set('size', '10');
+                }
+                // Preserve all other query params (filter, search, etc.)
+                window.location = url.toString();
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>
