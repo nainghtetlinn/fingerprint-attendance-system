@@ -44,6 +44,27 @@ router.route('/').get(async (req, res) => {
   }
 })
 
+router.route('/details/:id').get(async (req, res) => {
+  try {
+    const studentId = req.params.id
+    const student = await Student.findById(studentId)
+    if (!student) {
+      return res.status(404).send('Student not found')
+    }
+    const records = await Attendance.find({ student: studentId }).sort({
+      date: -1,
+    })
+    res.render('student_details', {
+      student,
+      records,
+      title: 'Student Details',
+      currentPath: '/students',
+    })
+  } catch (error) {
+    res.status(500).send('Internal server error')
+  }
+})
+
 router
   .route('/create')
   .get((req, res) => {

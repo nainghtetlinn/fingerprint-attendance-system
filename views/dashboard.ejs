@@ -3,41 +3,55 @@
   <div class="container mt-4">
     <h3 class="mb-4">Recent Attendance</h3>
 
-    <div class="mb-2 d-flex justify-content-end">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-outline-primary <%= filter === 'all' ? 'active' : '' %>"><a
-            class="page-link" href="/dashboard?filter=all">All</a></button>
-        <button type="button" class="btn btn-outline-primary <%= filter === 'today' ? 'active' : '' %>"><a
-            class="page-link" href="/dashboard?filter=today">Today</a></button>
-      </div>
+    <div class="dropdown mb-2">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Filter: <%= filter.charAt(0).toUpperCase() + filter.slice(1) %>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item" href="/dashboard?filter=all">View All Attendance</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="/dashboard?filter=today">Today’s Attendance</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="/dashboard?filter=month">This Month</a>
+        </li>
+      </ul>
     </div>
 
     <table class="table table-hover table-bordered table-striped text-center">
-      <thead class="table-primary">
+      <thead class="table-dark">
         <tr>
-          <th>Name</th>
+          <th>Student Name</th>
           <th>Roll No</th>
-          <th>Fingerprint ID</th>
-          <th>Date & Time</th>
+          <th>Date</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
-        <% records.forEach(r=> { %>
-          <tr>
-            <td>
-              <%= r.student.name %>
-            </td>
-            <td>
-              <%= r.student.rollNo %>
-            </td>
-            <td>
-              <%= r.student.fpid %>
-            </td>
-            <td>
-              <%= new Date(r.date).toLocaleString() %>
-            </td>
-          </tr>
-          <% }) %>
+        <% if (records.length> 0) { %>
+          <% records.forEach(record=> { %>
+            <tr>
+              <td>
+                <%= record.student ? record.student.name : "Unknown" %>
+              </td>
+              <td>
+                <%= record.student ? record.student.rollNo : "N/A" %>
+              </td>
+              <td>
+                <%= record.date.toLocaleDateString() %>
+              </td>
+              <td>
+                <%= record.date.toLocaleTimeString() %>
+              </td>
+            </tr>
+            <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center">No attendance records found.</td>
+                </tr>
+                <% } %>
       </tbody>
     </table>
 

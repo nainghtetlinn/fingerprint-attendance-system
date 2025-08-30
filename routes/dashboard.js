@@ -6,7 +6,7 @@ const isLoggedIn = require('../middleware/isLoggedIn')
 
 router.route('/').get(isLoggedIn, async (req, res) => {
   try {
-    const { filter, page = 1, size = 10 } = req.query
+    const { filter = 'all', page = 1, size = 10 } = req.query
     let query = {}
 
     if (filter === 'today') {
@@ -17,6 +17,11 @@ router.route('/').get(isLoggedIn, async (req, res) => {
       endOfDay.setHours(23, 59, 59, 999)
 
       query.date = { $gte: startOfDay, $lte: endOfDay }
+    } else if (filter === 'month') {
+      const now = new Date()
+      const start = new Date(now.getFullYear(), now.getMonth(), 1)
+      const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59)
+      query.date = { $gte: start, $lte: end }
     }
 
     const limit = parseInt(size, 10) || 10
@@ -33,7 +38,7 @@ router.route('/').get(isLoggedIn, async (req, res) => {
 
     res.render('dashboard', {
       records,
-      filter: filter || 'all',
+      filter,
       title: 'Dashboard',
       currentPath: '/dashboard',
       pagination: {
