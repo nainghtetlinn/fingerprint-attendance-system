@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_URI)
 async function createUser() {
   try {
     const user = new User({
-      username: process.env.USERNAME,
+      username: process.env.NAME,
       password: process.env.PASSWORD,
     })
 
