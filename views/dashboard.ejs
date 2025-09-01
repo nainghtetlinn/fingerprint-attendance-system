@@ -20,7 +20,44 @@
       </ul>
     </div>
 
-    <table class="table table-hover table-bordered table-striped text-center">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Student Name</th>
+            <th>Roll No</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (records.length> 0) { %>
+            <% records.forEach(record=> { %>
+              <tr>
+                <td>
+                  <%= record.student ? record.student.name : "Unknown" %>
+                </td>
+                <td>
+                  <%= record.student ? record.student.rollNo : "N/A" %>
+                </td>
+                <td>
+                  <%= record.date.toLocaleDateString() %>
+                </td>
+                <td>
+                  <%= record.date.toLocaleTimeString() %>
+                </td>
+              </tr>
+              <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="4" class="text-center">No attendance records found.</td>
+                  </tr>
+                  <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <table class="table table-hover table-bordered table-striped text-center">
       <thead class="table-dark">
         <tr>
           <th>Student Name</th>
@@ -53,7 +90,7 @@
                 </tr>
                 <% } %>
       </tbody>
-    </table>
+    </table> -->
 
     <%- include('./partials/pagination') %>
 
