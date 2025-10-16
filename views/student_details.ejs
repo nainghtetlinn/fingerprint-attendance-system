@@ -18,6 +18,29 @@
             </div>
         </div>
 
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Attendance Summary</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>First Attendance Date:</strong>
+                    <%= registrationDate.toLocaleDateString() %>
+                </p>
+                <p><strong>Total Attending Days (Mon–Fri):</strong>
+                    <%= totalAttendingDays %> days
+                </p>
+                <p><strong>Days Present:</strong>
+                    <%= attendedDays %> days
+                </p>
+                <p><strong>Attendance Percentage:</strong>
+                    <span style="font-size: 1.5rem; font-weight: bold;"
+                        class="<%= attendancePercentage >= 75 ? 'text-success' : 'text-danger' %>">
+                        <%= attendancePercentage %>%
+                    </span>
+                </p>
+            </div>
+        </div>
+
 
         <h5 class="mb-0 pb-3">Attendance Records</h5>
         <div>
@@ -53,5 +76,6 @@
                     <% } %>
         </div>
 
+    </div>
 
-        <%- include('./partials/footer') %>
+    <%- include('./partials/footer') %>
