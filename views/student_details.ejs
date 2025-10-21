@@ -24,7 +24,7 @@
             </div>
             <div class="card-body">
                 <p><strong>First Attendance Date:</strong>
-                    <%= registrationDate.toLocaleDateString() %>
+                    <%= registrationDate ? registrationDate.toLocaleDateString() : '-' %>
                 </p>
                 <p><strong>Total Attending Days (Mon–Fri):</strong>
                     <%= totalAttendingDays %> days
