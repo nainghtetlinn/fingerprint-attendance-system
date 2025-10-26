@@ -1,24 +1,24 @@
-require('dotenv').config()
-const mongoose = require('mongoose')
+require("dotenv").config();
+const mongoose = require("mongoose");
 
-const User = require('./models/User')
+const User = require("./models/User");
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI);
 
 async function createUser() {
   try {
     const user = new User({
-      username: process.env.NAME,
-      password: process.env.PASSWORD,
-    })
+      username: process.env.ADMIN_USERNAME,
+      password: process.env.ADMIN_PASSWORD,
+    });
 
-    await user.save()
-    console.log('✅ Authorized user account created!')
+    await user.save();
+    console.log("✅ Authorized user account created!");
   } catch (err) {
-    console.error('❌ Error creating user:', err)
+    console.error("❌ Error creating user:", err);
   } finally {
-    mongoose.disconnect()
+    mongoose.disconnect();
   }
 }
 
-createUser()
+createUser();
